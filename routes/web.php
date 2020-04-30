@@ -16,6 +16,8 @@ Route::get('/', function () {
     return view('login');
 })->name('login');
 
+//teste github
+
 Route::get('/admin/clientes','ClienteController@index')->name('admin.clientes.index');
 Route::get('/admin/clientes/adicionar','ClienteController@adicionar')->name('admin.clientes.adicionar');
 Route::post('/admin/clientes/salvar','ClienteController@salvar')->name('admin.clientes.salvar') ;
