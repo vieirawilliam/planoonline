@@ -14,7 +14,7 @@ return [
     */
 
     'defaults' => [
-        'guard' => 'web',
+        'guard' => 'plano',
         'passwords' => 'users',
     ],
 
@@ -39,6 +39,11 @@ return [
         'web' => [
             'driver' => 'session',
             'provider' => 'users',
+        ],
+
+        'plano' => [
+            'driver' => 'session',
+            'provider' => 'tblusu',
         ],
 
         'api' => [
@@ -70,7 +75,10 @@ return [
             'driver' => 'eloquent',
             'model' => App\User::class,
         ],
-
+        'tblusu' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Plano\Tblusu::class,
+        ],
         // 'users' => [
         //     'driver' => 'database',
         //     'table' => 'users',

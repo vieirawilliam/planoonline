@@ -1,6 +1,6 @@
 <?php
 
-namespace Hcode\Funcoes;
+namespace App\Funcoes;
 
 class Funcoes
 {
