@@ -25,7 +25,7 @@ class TblusuController extends Controller
         ]);
 
         if($validator->fails()){
-            return redirect('/login')
+            return redirect('/')
                     ->withErrors($validator)
                     ->withInput();
         }else{
