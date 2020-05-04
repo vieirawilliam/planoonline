@@ -17,3 +17,22 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+
+
+Route::get('/', function () {    
+    return view('login');
+})->name('login');
+
+Route::group(['middleware'=>'clientes'], function(){        
+        
+        Route::namespace('Plano')->group(function () {
+            Route::post('/login/logar','TblusuController@login')->name('login.login') ;
+            Route::get('/login/logout','TblusuController@logout')->name('login.logout') ;
+            
+            Route::group(['middleware'=>['clientes','auth']], function(){                
+                //CAMINHO DA URL   //CONTROLER DA ROTA       //APELIDO PARA ROTA     
+                Route::get('/login/index','TblusuController@index')->name('tblusu.index');           
+            });            
+        });              
+});

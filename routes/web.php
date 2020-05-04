@@ -16,27 +16,7 @@ Route::get('/', function () {
     return view('login');
 })->name('login');
 
-//teste github
 
-Route::get('/admin/clientes','ClienteController@index')->name('admin.clientes.index');
-Route::get('/admin/clientes/adicionar','ClienteController@adicionar')->name('admin.clientes.adicionar');
-Route::post('/admin/clientes/salvar','ClienteController@salvar')->name('admin.clientes.salvar') ;
-Route::get('/admin/clientes/editar/{id}','ClienteController@editar')->name('admin.clientes.editar') ;
-Route::put('/admin/clientes/atualizar/{id}','ClienteController@atualizar')->name('admin.clientes.atualizar') ;
-Route::get('/admin/clientes/deletar/{id}','ClienteController@deletar')->name('admin.clientes.deletar') ;
-
-Route::group(['middleware'=>'clientes'], function(){        
-        
-        Route::namespace('Plano')->group(function () {
-            Route::post('/login/logar','TblusuController@login')->name('login.login') ;
-            Route::get('/login/logout','TblusuController@logout')->name('login.logout') ;
-            
-            Route::group(['middleware'=>['clientes','auth']], function(){                
-                //CAMINHO DA URL   //CONTROLER DA ROTA       //APELIDO PARA ROTA     
-                Route::get('/login/index','TblusuController@index')->name('tblusu.index');           
-            });            
-        });              
-});
 
 
 

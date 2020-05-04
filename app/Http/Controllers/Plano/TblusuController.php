@@ -2,15 +2,16 @@
 
 namespace App\Http\Controllers\Plano;
 
-use App\Funcoes\Funcoes;
 use App\Http\Controllers\Controller;
 use App\Models\Plano\Tblusu;
+use App\Traits\FuncoesTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class TblusuController extends Controller
 {
-    
+    Use FuncoesTrait;
+
     public function index(){
         $tblusus = Tblusu::all();
         return view('plano.tblusu.index', compact('tblusus'));
@@ -28,16 +29,15 @@ class TblusuController extends Controller
                     ->withErrors($validator)
                     ->withInput();
         }else{
-                        
-            $decoif = new Funcoes();
-            $password = $decoif->codIF($request->ususenha);    
+                                   
+            $password = $this->codIF($request->ususenha);    
             $usuarios = Tblusu::where('usunome', $request->usunome )->where('ususenha', $password)->first();  
             
             if($usuarios['ususenha'] != '')
             {                            
                 auth()->guard('plano')->login($usuarios);                
-                //Auth::guard('plano')->user()->usunome
-                //Auth::login($usuarios);
+                
+                Auth::guard('plano')->login($usuarios);
                 $tblusus = Tblusu::all();
                 return view('plano.tblusu.index', compact('tblusus'));         
                 
@@ -48,6 +48,7 @@ class TblusuController extends Controller
     }
 
     public function logout(){
+        Auth::guard('plano')->logout();
         auth()->guard('plano')->logout();
         return redirect('/');
     }
