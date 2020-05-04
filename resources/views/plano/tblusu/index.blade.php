@@ -1,5 +1,5 @@
 @extends('layout.site')
-@section('titulo', 'Clientes MPLAN')
+@section('titulo', 'Cadastro de Usuários')
 
 @section('conteudo')
 <div class="container">

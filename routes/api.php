@@ -18,12 +18,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-
-
-Route::get('/', function () {    
-    return view('login');
-})->name('login');
-
 Route::group(['middleware'=>'clientes'], function(){        
         
         Route::namespace('Plano')->group(function () {
