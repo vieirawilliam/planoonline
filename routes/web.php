@@ -11,8 +11,6 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-
 Route::get('/', function () {
     return view('login');
 })->name('login');
@@ -28,8 +26,8 @@ Route::namespace('Plano')->group(function () {
     Route::post('/login/logar', 'TblusuController@login')->name('login.login');
     Route::get('/login/logout', 'TblusuController@logout')->name('login.logout');
 
-    Route::group(['middleware' => ['auth']], function () {
-        //CAMINHO DA URL   //CONTROLER DA ROTA       //APELIDO PARA ROTA     
+    Route::group(['middleware' => ['auth:plano']], function () {
+        //CAMINHO DA URL           //CONTROLER DA ROTA       //APELIDO PARA ROTA     
         Route::get('/login/index', 'TblusuController@index')->name('tblusu.index');
     });
 });

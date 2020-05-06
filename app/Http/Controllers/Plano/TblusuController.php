@@ -35,8 +35,8 @@ class TblusuController extends Controller
             
             if($usuarios['ususenha'] != '')
             {                            
-                auth()->guard('plano')->login($usuarios);                
-                //Auth::guard('plano')->login($usuarios);
+                //auth()->guard('plano')->login($usuarios);                
+                Auth::guard('plano')->login($usuarios);
                 $tblusus = Tblusu::all();
                 return view('plano.tblusu.index', compact('tblusus'));         
                 
