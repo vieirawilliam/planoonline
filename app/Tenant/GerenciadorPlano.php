@@ -17,6 +17,8 @@ class GerenciadorPlano {
         Config::set('database.connections.tenent.username', $Plano['plano']['user']);
         Config::set('database.connections.tenent.password', $Plano['plano']['password']);
         Config::set('database.connections.tenent.port', $Plano['plano']['port']);
+        Config::set('database.connections.tenent.schema','WARELINE');
+        Config::set('database.connections.tenent.sslmode', 'prefer');
         DB::reconnect('tenent');
         Schema::connection('tenent')->getConnection()->reconnect();
 

@@ -1,39 +1,15 @@
-@extends('layout.site')
+@extends('plano.principal')
 @section('titulo', 'Cadastro de Usuários')
 
-@section('conteudo')
-<div class="container">
-    <h3 class="center">Lista de usuarios MPLAN</h3>
-
-    <div class="row">
-        <table>
-            <thead>
-                <div class="row">
-                    <a class="btn blue" href="">Novo</a>
-                </div>
-                <tr>
-                    <th>ID</th>
-                    <th>USUCOD</th>
-                    <th>USUNOME</th>
-                    <th>STATUS</th>                    
-                    <th>Ação</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach($tblusus as $tblusu)
-                <tr>
-                    <td> {{ $tblusu->id }} </td>
-                    <td> {{ $tblusu->usucod }} </td>
-                    <td> {{ $tblusu->usunome }} </td>
-                    <td> {{ $tblusu->status }} </td>
-                    <td>
-                        <a class="btn deep-orange" href=" ">Editar</a>
-                        <a class="btn red" href="  ">Deletar</a>
-                    </td>
-                </tr>
-                @endforeach
-            </tbody>
-        </table>
-    </div>
-</div>
+@section('content')
+    <pagina tamanho="12">
+        <painel titulo="Lista de Usuários">
+            <tabela-usuario 
+            v-bind:titulos="['ID', 'Usu cod', 'Usu Nome', 'Nome', 'Status']"
+            v-bind:itens="[[1,'300','ADMIN','WILLIAM','ADMINISTRADOR'], [2,'600','NEY','NEYMAR','ADMINISTRADOR'] ]"
+            criar="#criar" detalhe="#detalhe" editar="#editar" deletar="#deletar" token="465464"
+            >
+            </tabela-usuario>
+        </painel>
+    </pagina>
 @endsection

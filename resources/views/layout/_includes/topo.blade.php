@@ -24,8 +24,8 @@
                 <a href="#" data-target="mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
                 <ul class="right hide-on-med-and-down">
                     <li><a href="/">Home</a></li>                                            
-                    <li><a href="">  {{ auth()->guard('plano')->user()->usunome }}</a></li>
-                    <li><a href="{{route('login.logout')}}">Sair</a></li>
+                    <li><a href=""> </a></li>
+                    <li><a href="">Sair</a></li>
                 </ul>
             </div>
         </nav>

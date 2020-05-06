@@ -1,24 +1,50 @@
+<!DOCTYPE html>
+<html lang="{{ app()->getLocale() }}">
 
-<div class="content-center">
-    <h3 class="center">Login</h3>
-    
-    <div class="container">
-        <form class="" action="{{route('login.login')}}" method="post">
-            {{ csrf_field() }}
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-         
-            <div class="input-field" >
-                <input type="text" name="usunome" >
-                <label>Usuário</label>
-            </div>
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
-            <div class="input-field" >
-                <input type="password" name="ususenha" >
-                <label>Senha</label>
-            </div>
+    <title>Login MPLAN</title>
 
-            <button class="btn blue"> Entrar </button>
+    <!-- Styles -->
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+</head>
 
-        </form>
+<body>
+    <div id="app">
+        <topo titulo="" url="">
+        </topo>
+        <pagina tamanho="4">    
+            <painel titulo="LOGIN">
+                <div>
+                    <div>
+                        <form class="" action="{{route('login.login')}}" method="post">
+                            {{ csrf_field() }}
+
+                            <div class="input-field">
+                                <input type="text" name="usunome">
+                                <label>Usuário</label>
+                            </div>
+
+                            <div class="input-field">
+                                <input type="password" name="ususenha">
+                                <label>Senha</label>
+                            </div>
+
+                            <button class="btn blue"> Entrar </button>
+                        </form>
+                    </div>
+                </div>
+            </painel>
+        </pagina>
     </div>
-</div>
+    <!-- Scripts -->
+    <script src="{{ asset('js/app.js') }}"></script>
+</body>
+
+</html>
