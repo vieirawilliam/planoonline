@@ -9,6 +9,7 @@
             </div>
 
             <table class="table table-striped table-hover">
+                
                 <thead>
                     <tr>
                         <th v-for="(titulo,index) in titulos" :key="index"> {{ titulo }} </th>
@@ -16,6 +17,7 @@
                         <th v-if="detalhe || editar || deletar">Ação</th>
                     </tr>                    
                 </thead>
+                
                 <tbody>
                     <tr v-for="(item,index) in lista" :key="index">
                         <td v-for="(i,index) in item" :key="index"> {{ i }} </td>
@@ -41,7 +43,6 @@
                                 <a v-if="detalhe" v-bind:href="editar">Detalhe |</a>
                                 <a v-if="editar" v-bind:href="editar">Editar </a>
                             </span>
-
                         </td>
                     </tr>
                 </tbody>
@@ -58,13 +59,25 @@
             }
         },
         methods:{
-            executaform: function(index){
-                document.getElementByID(index).submit();
+            executaForm: function(index){
+                document.getElementById(index).submit();
             }
         },
         computed:{
             lista:function(){
-            
+                
+                let ordem = "desc";
+                let ordemCol = 0;
+
+                ordem = ordem.toLowerCase();
+                ordemCol = parseInt(ordemCol);
+
+                this.itens.sort(function(a,b){
+                    if (a[3] > b[3] ) { return 1;}
+                    if (a[3] < b[3] ) { return -1;}
+                    return 0;
+                });
+
                 return this.itens.filter(res => {                    
                    for(let k = 0;k < res.length; k++){
                     if((res[k] + "").toLowerCase().indexOf(this.buscar.toLowerCase()) >= 0){

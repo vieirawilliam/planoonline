@@ -32387,13 +32387,23 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         };
     },
     methods: {
-        executaform: function executaform(index) {
-            document.getElementByID(index).submit();
+        executaForm: function executaForm(index) {
+            document.getElementById(index).submit();
         }
     },
     computed: {
         lista: function lista() {
             var _this = this;
+
+            this.itens.sort(function (a, b) {
+                if (a[3] > b[3]) {
+                    return 1;
+                }
+                if (a[3] < b[3]) {
+                    return -1;
+                }
+                return 0;
+            });
 
             return this.itens.filter(function (res) {
                 for (var k = 0; k < res.length; k++) {
