@@ -8,6 +8,8 @@ use App\Traits\FuncoesTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+use function PHPSTORM_META\type;
+
 class TblusuController extends Controller
 {
     Use FuncoesTrait;
@@ -33,13 +35,12 @@ class TblusuController extends Controller
             $password = $this->codIF($request->ususenha);    
             $usuarios = Tblusu::where('usunome', $request->usunome )->where('ususenha', $password)->first();  
             
-            if($usuarios['ususenha'] != '')
+            if($usuarios != null )
             {                            
                 //auth()->guard('plano')->login($usuarios);                
                 Auth::guard('plano')->login($usuarios);
                 $tblusus = Tblusu::all();
                 return view('plano.tblusu.index', compact('tblusus'));         
-                
             }else{
                 return "NÃO ENCONTRO USUÁRIO E SENHA";
             }
