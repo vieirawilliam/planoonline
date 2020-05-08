@@ -31,5 +31,8 @@ Route::namespace('Plano')->group(function () {
     Route::group(['middleware' => ['auth']], function () {
         //CAMINHO DA URL           //CONTROLER DA ROTA       //APELIDO PARA ROTA     
         Route::get('/login/index', 'TblusuController@index')->name('tblusu.index');
+        Route::get('/plano/principal', function () {
+            return view('plano.principal');
+        })->name('plano.principal');
     });
 });

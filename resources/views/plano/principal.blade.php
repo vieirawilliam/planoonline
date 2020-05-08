@@ -17,16 +17,23 @@
 
 <body>
     <div id="app">
-        <topo titulo="Sistema Mplan" url="{{ url('/') }}">            
+        <topo titulo="Sistema Mplan" url="{{ url('/plano/principal') }}">            
             <li >
-                <a href="#"  >
-                    {{ auth()->guard('plano')->user()->usunome }} 
-                </a>
+                <li>
+                    <a href="{{ route('tblusu.index') }}">
+                        USUÁRIOS
+                    </a>                       
+                </li>    
+                <li>
+                    <a href="#"  >
+                        {{ auth()->guard('plano')->user()->usunome }} 
+                    </a>
+                </li>
                 <li>
                     <a href="{{ route('login.logout') }}">
-                            SAIR
-                        </a>                       
-                    </li>
+                        SAIR
+                    </a>                       
+                </li>
             </li>
         </topo>
         @yield('content')

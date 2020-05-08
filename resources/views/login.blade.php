@@ -27,16 +27,17 @@
                             {{ csrf_field() }}
 
                             <div class="input-field">
-                                <input type="text" name="usunome">
-                                <label>Usuário</label>
+                                
+                                <input class="form-control espacoInput" type="text" name="usunome" placeholder="Digite seu usuário" >
+                                
                             </div>
-
-                            <div class="input-field">
-                                <input type="password" name="ususenha">
-                                <label>Senha</label>
+                            
+                            <div  class="input-field">
+                                <input class="form-control espacoInput" type="password" name="ususenha" placeholder="Digite sua senha">
+                              
                             </div>
-
-                            <button class="btn blue"> Entrar </button>
+                            
+                            <button class="btn btn-primary"> Entrar </button>
                         </form>
                     </div>
                 </div>

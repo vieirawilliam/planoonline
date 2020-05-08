@@ -15,8 +15,14 @@ class TblusuController extends Controller
     Use FuncoesTrait;
 
     public function index(){
+
+        $listaMigalhas = json_encode([
+            ["titulo"=>"Home","url"=>route('plano.principal')],
+            ["titulo"=>"Lista de Usuários","url"=>""]
+        ]);
+
         $tblusus = Tblusu::all();
-        return view('plano.tblusu.index', compact('tblusus'));
+        return view('plano.tblusu.index', compact('tblusus','listaMigalhas'));
     }
 
     public function login(Request $request){
@@ -40,7 +46,7 @@ class TblusuController extends Controller
                 //auth()->guard('plano')->login($usuarios);                
                 Auth::guard('plano')->login($usuarios);
                 $tblusus = Tblusu::all();
-                return view('plano.tblusu.index', compact('tblusus'));         
+                return view('plano.principal');         
             }else{
                 return "NÃO ENCONTRO USUÁRIO E SENHA";
             }
