@@ -48,7 +48,9 @@ class TblusuController extends Controller
                 $tblusus = Tblusu::all();
                 return view('plano.principal');         
             }else{
-                return "NÃO ENCONTRO USUÁRIO E SENHA";
+                return redirect('/')
+                    ->withErrors($validator)
+                    ->withInput();
             }
         }        
     }

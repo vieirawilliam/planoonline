@@ -1,4 +1,6 @@
-@import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);@import url(https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css);@import url(http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css);@charset "UTF-8";
+@import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);
+@import url(https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css);
+@import url(http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css);@charset "UTF-8";
 
 /*!
  * Bootstrap v3.4.1 (https://getbootstrap.com/)
@@ -8331,9 +8333,5 @@ button.close {
   .hidden-print {
     display: none !important;
   }
-}
-
-.espacoInput {
-  margin-bottom: 10px;
 }
 

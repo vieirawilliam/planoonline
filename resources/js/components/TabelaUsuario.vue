@@ -10,7 +10,7 @@
 
             <table class="table table-striped table-hover">
                 
-                <thead>
+                <thead class="thead-dark">
                     <tr>
                         <th style="cursor:pointer" v-on:click="ordenaColuna(index)" v-for="(titulo,index) in titulos" :key="index"> {{ titulo }} </th>
                     
