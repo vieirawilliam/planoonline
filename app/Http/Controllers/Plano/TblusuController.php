@@ -21,8 +21,13 @@ class TblusuController extends Controller
             ["titulo"=>"Lista de Usuários","url"=>""]
         ]);
 
+        $listaUsuarios = json_encode([
+            ["id"=>'01', "usucod"=>'0001',"usunome"=>'WILLIAM',"nome"=>'WILLIAM VIEIRA ALVES',"situacao"=>'ATIVO',"status"=>'USUARIO'],
+            ["id"=>'02', "usucod"=>'0002',"usunome"=>'ADMIN',"nome"=>'ADMINISTRADOR',"situacao"=>'ATIVO',"status"=>'ADMINISTRADOR']
+        ]);
+
         $tblusus = Tblusu::all();
-        return view('plano.tblusu.index', compact('tblusus','listaMigalhas'));
+        return view('plano.tblusu.index', compact('tblusus','listaMigalhas','listaUsuarios'));
     }
 
     public function login(Request $request){

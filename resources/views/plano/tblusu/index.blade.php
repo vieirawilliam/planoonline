@@ -8,29 +8,67 @@
 
         <modallink tipo="button" nome="meuModalTeste" titulo="Novo" css=""></modallink>
 
-        <tabela-usuario 
-        v-bind:titulos="['ID', 'Usu cod', 'Usu Nome', 'Nome', 'Status']" 
-        v-bind:itens="[[1,'300','ADMIN','william','ADMINISTRADOR'], [2,'600','NEY','NEYMAR','ADMINISTRADOR'] ]" 
-        ordem="desc" ordemcol="2" criar="#criar" detalhe="#detalhe" editar="#editar" deletar="#deletar" token="465464">
+        <tabela-usuario v-bind:titulos="['ID', 'Usu cod', 'Usu Nome', 'Nome', 'Situacao','Status']" 
+                        v-bind:itens="{{$listaUsuarios}}" 
+                        ordem="desc" ordemcol="2" criar="#criar" detalhe="#detalhe" 
+                        editar="#editar" deletar="#deletar" token="465464" 
+                        modal="sim">
         </tabela-usuario>
     </painel>
 </pagina>
 
-    <modal id="meuModalTeste" nome="meuModalTeste">
-        <painel titulo="Adicionar">
-            <formulario css="" action="#" method="put" enctype="multipart/form-data" token="12345">
+<modal id="meuModalTeste" nome="meuModalTeste">
+    <painel titulo="Cadastro de Usuários">
+        <formulario css="" action="#" method="put" enctype="multipart/form-data" token="12345">
 
-                <div class="form-group">
-                    <label for="titulo">Título</label>
-                    <input type="text" class="form-control" id="titulo" name="titulo" placeholder="Título">
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="usunome">Login</label>
+                    <input type="text" class="form-control" id="usunome" placeholder="Login">
                 </div>
-                <div class="form-group">
-                    <label for="descricao">Descrição</label>
-                    <input type="text" class="form-control" id="descricao" name="descricao" placeholder="Descrição">
+                <div class="form-group col-md-6">
+                    <label for="ususenha">Senha</label>
+                    <input type="password" class="form-control" id="ususenha" placeholder="Senha">
                 </div>
-                <button class="btn btn-info">Adicionar</button>
-            </formulario>
-        </painel>
-    </modal>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="nome">Nome</label>
+                    <input type="text" class="form-control" id="nome" placeholder="Nome">
+                </div>
+                
+                <div class="form-group col-md-6">
+                    <label for="situacao">Situação</label>
+                    <select id="situacao" class="form-control">
+                        <option selected>ATIVO</option>
+                        <option>INATIVO</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group col-md-12">
+                    <label for="status">Perfil</label>
+                    <select id="status" class="form-control">
+                        <option selected>ADMINISTRADOR</option>
+                        <option>AUDITOR</option>
+                        <option>EMPRESA</option>
+                        <option>PRESTADOR</option>
+                        <option>USUARIO</option>
+                        <option>COMERCIAL</option>
+                        <option>VENDEDOR</option>
+                    </select>
+                </div>
+            </div>
+
+            
+
+            <div class="form-group col-md-6">    
+                <button type="submit" class="btn btn-primary">Gravar</button>      
+            </div>
+            
+        </formulario>
+    </painel>
+</modal>
 
 @endsection

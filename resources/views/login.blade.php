@@ -26,15 +26,14 @@
                         <form class="" action="{{route('login.login')}}" method="post">
                             {{ csrf_field() }}
 
-                            <div class="input-field">
+                            <div class="input-field form-row form-group">
                                 
                                 <input class="form-control espacoInput" type="text" name="usunome" placeholder="Digite seu usuário" >
                                 
                             </div>
                             
-                            <div  class="input-field">
+                            <div  class="input-field form-row form-group">
                                 <input class="form-control espacoInput" type="password" name="ususenha" placeholder="Digite sua senha">
-                              
                             </div>
                             
                             <button class="btn btn-primary"> Entrar </button>
