@@ -19,7 +19,16 @@
     <div id="app">
         <topo titulo="" url="">
         </topo>
-        <pagina tamanho="4">    
+        <pagina tamanho="4">
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif    
             <painel titulo="LOGIN">
                 <div>
                     <div>

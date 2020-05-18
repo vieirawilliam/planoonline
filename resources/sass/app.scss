@@ -4,7 +4,9 @@
 @import url("http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css");
 
 // Bootstrap
-@import "~bootstrap-sass/assets/stylesheets/bootstrap";
+$icon-font-path: '~bootstrap-sass/assets/fonts/bootstrap/';
+@import '../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap';
+//@import "~bootstrap-sass/assets/stylesheets/bootstrap";
 
 // Variables
 @import "variables";

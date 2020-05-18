@@ -34,5 +34,7 @@ Route::namespace('Plano')->group(function () {
         Route::get('/plano/principal', function () {
             return view('plano.principal');
         })->name('plano.principal');
+        Route::post('/login/index', 'TblusuController@store')->name('tblusu.store');
+        
     });
 });

@@ -1,9 +1,14 @@
 <template>    
     <div class="">
       
-            <div class="form-inline">                
+            <div class="form-inline">
+
+             
+
+                <a v-if="criar && !modal" :href="criar" >Novo</a> 
+                <modallink v-if="criar && modal" tipo="button" nome="adicionar" titulo="Novo" css=""></modallink>                
                 <div class="form-group pull-right" >
-                    <input type="search" class="form-control" placeholder="Buscar" v-model="buscar">{{buscar}}
+                    <input type="search" class="form-control" placeholder="Buscar" v-model="buscar">
                 </div>
             </div>
 
@@ -19,7 +24,7 @@
                 
                 <tbody>
                     <tr v-for="(item,index) in lista" :key="index">
-                        <td v-for="(i,index) in item" :key="index"> {{ i }} </td>
+                        <td v-for="(i,index) in item" :key="index"> {{ i | subStr | upper }} </td>
                         
                         <td v-if="detalhe || editar || deletar" >                            
                             <form v-bind:id="index" v-if="deletar && token" v-bind:action="deletar" method="post">
@@ -28,19 +33,25 @@
                                 <input type="hidden" name="_token" v-bind:value="token">
                                 
                                 <a v-if="detalhe" v-bind:href="editar">Detalhe |</a>
-                                <a v-if="editar" v-bind:href="editar">Editar |</a>
+                                <a v-if="editar && !modal" v-bind:href="editar">Editar |</a>
+                                <modallink v-if="editar && modal" :item="item" tipo="link" nome="editar" titulo="Editar |" css=""></modallink> 
+
                                 <a href="#" v-on:click="executaform(index)">Deletar</a>
                             </form>
 
                             <span v-if="!token">
                                 <a v-if="detalhe" v-bind:href="editar">Detalhe |</a>
-                                <a v-if="editar" v-bind:href="editar">Editar |</a>
+                                <a v-if="editar && !modal" v-bind:href="editar">Editar |</a>
+                                <modallink v-if="editar && modal" tipo="link" nome="editar" titulo="Editar |" css=""></modallink> 
+
                                 <a v-if="deletar" v-bind:href="deletar">Deletar </a>
                             </span>
 
                             <span v-if="token && !deletar">
                                 <a v-if="detalhe" v-bind:href="editar">Detalhe |</a>
-                                <a v-if="editar" v-bind:href="editar">Editar </a>
+                                <a v-if="editar && !modal" v-bind:href="editar">Editar </a>
+                                <modallink v-if="editar && modal" tipo="link" nome="editar" titulo="Editar " css=""></modallink> 
+
                             </span>
                         </td>
                     </tr>
@@ -59,6 +70,19 @@
                 ordemAuxCol: this.ordemCol || 0
             }
         },
+        filters: {
+  	        subStr: function(string) {
+                if (string != null){
+                    return string.toString().substring(0,40);
+                }            
+            },
+            upper: function (value) {
+                if (!value) return ''
+                value = value.toString()
+                return value.toUpperCase()
+            }
+        }
+        ,
         methods:{
             executaForm: function(index){
                 document.getElementById(index).submit();
@@ -75,6 +99,8 @@
         computed:{
             lista:function(){
                 
+           
+
                 let ordem = this.ordemAux ;
                 let ordemCol = this.ordemAuxCol;
 
@@ -97,6 +123,7 @@
 
                 if(this.buscar){
                     return this.itens.filter(res => {                    
+                    res = Object.values(res);
                     for(let k = 0;k < res.length; k++){
                         if((res[k] + "").toLowerCase().indexOf(this.buscar.toLowerCase()) >= 0){
                             return true;

@@ -10,13 +10,14 @@ class Tblusu extends Authenticatable
     
 
     protected $table = 'tblusu';
+    public $timestamps = false;
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'usunome', 'ususenha',
+        'usucod','usunome', 'ususenha','nome','situacao','status'
     ];
 
     /**

@@ -16,7 +16,7 @@
 </head>
 
 <body>
-    <div id="app">
+    <div id="app" style="display:none">
         <topo titulo="Sistema Mplan" url="{{ url('/plano/principal') }}">            
             <li >
                 <li>
