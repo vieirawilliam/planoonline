@@ -2,6 +2,7 @@
 
 namespace App\Models\Plano;
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class Tblusu extends Authenticatable
@@ -17,7 +18,7 @@ class Tblusu extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'usucod','usunome', 'ususenha','nome','situacao','status'
+        'usucod','usunome', 'ususenha','nome','situacao','status','codger','id_codger'
     ];
 
     /**
@@ -34,5 +35,16 @@ class Tblusu extends Authenticatable
     public function getAuthPassword()
     {
         return $this->ususenha;
+    }
+
+    public static function ListaUsuarios($paginate)
+    {
+        $data = DB::table('tblusu')
+                        ->join('cadger','cadger.id','tblusu.id_codger')
+                        ->select('tblusu.id','tblusu.usucod','tblusu.usunome','tblusu.nome','tblusu.situacao','tblusu.status','nomeger')
+                        ->orderBy('tblusu.usucod','desc')
+                        ->paginate($paginate);
+        
+        return $data;
     }
 }

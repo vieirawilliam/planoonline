@@ -4,16 +4,16 @@ namespace App\Http\Controllers\Plano;
 
 use App\Http\Controllers\Controller;
 use App\Models\Plano\Tblusu;
+use App\Models\Plano\Cadger;
 use App\Traits\FuncoesTrait;
 use Hamcrest\Core\HasToString;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
-
 use Illuminate\Support\Facades\Validator;
 use PhpParser\Node\Expr\FuncCall;
-
 use function PHPSTORM_META\type;
+use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\DB;
 
 class TblusuController extends Controller
 {
@@ -26,11 +26,19 @@ class TblusuController extends Controller
             ["titulo"=>"Lista de Usuários","url"=>""]
         ]);
 
-        $listaUsuarios = json_encode(Tblusu::select('id','usucod','usunome','nome','situacao','status')->orderBy('usucod','desc') ->limit(10)->get());      
-       
-        return view('plano.tblusu.index', compact('listaMigalhas','listaUsuarios'));
+        //$listaModelos = Tblusu::select('id','usucod','usunome','nome','situacao','status')->orderBy('usucod','desc')->paginate(10);      
+        
+        $listaModelos = Tblusu::ListaUsuarios(10);
+        $listaCadgers = Cadger::ListaCadger();
+
+        return view('plano.tblusu.index', compact('listaMigalhas','listaModelos','listaCadgers'));
     }
 
+    public function create()
+    {
+        //
+    }
+    
     public function login(Request $request){
 
         
@@ -67,17 +75,18 @@ class TblusuController extends Controller
         //auth()->guard('plano')->logout();
         Auth::guard('plano')->logout();        
         return redirect('/');
-    }
+    }       
 
     public function store(Request $request){
 
-        
-        $validatedData = $request->validate([
+       
+        $validatedData = Validator::make($request->all(), [ // <---
             'usunome' => ['required'],
-            'ususenha' => ['required'],
+            'ususenha' => ['required','min:6'],
             'nome' => ['required'],
             'situacao' => ['required'],
-            'status' => ['required']
+            'status' => ['required'],
+            'id_codger' => ['required']
         ]);
                
         if($validatedData->fails()){
@@ -100,11 +109,57 @@ class TblusuController extends Controller
 
     public function show($id){
         
+        //dd($tblusu);
         return Tblusu::find($id);
 
     }
 
     public function edit($id){
+       // 
+    }
+
+    public function update(Request $request, $id)
+    {
         
+        $data=$request->all();          
+        $password = $this->codIF($request->ususenha);
+
+        if(isset($data['ususenha']) && $data['ususenha'] != "" ){
+            $validatedData = Validator::make($data, [ // <---                
+                'usunome' => ['required', Rule::unique('tblusu')->ignore($id)],
+                'ususenha' => ['required','min:6'],
+                'nome' => ['required'],
+                'situacao' => ['required'],
+                'status' => ['required']
+            ],[
+                'required' => 'Campo obrigatório em branco'
+            ]);
+            $password = $this->codIF($request->ususenha);
+            $data['ususenha']=$password;
+        }else{
+            $validatedData = Validator::make($data, [ // <---
+                'usunome' => ['required', Rule::unique('tblusu')->ignore($id)],
+                'nome' => ['required'],
+                'situacao' => ['required'],
+                'status' => ['required']
+            ],[
+                'required' => 'Campo obrigatório em branco' 
+            ]);
+            unset($data['ususenha']);
+        }
+
+           
+        if($validatedData->fails()){
+            return redirect()->back()->withErrors($validatedData)->withInput();
+        }
+
+        Tblusu::find($id)->update($data);
+        return redirect()->back();
+    }
+
+    public function destroy($id)
+    {
+        Tblusu::find($id)->delete();
+        return redirect()->back();
     }
 }

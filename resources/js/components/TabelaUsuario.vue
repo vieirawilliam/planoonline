@@ -1,10 +1,7 @@
 <template>    
     <div class="">
       
-            <div class="form-inline">
-
-             
-
+            <div class="form-inline">        
                 <a v-if="criar && !modal" :href="criar" >Novo</a> 
                 <modallink v-if="criar && modal" tipo="button" nome="adicionar" titulo="Novo" css=""></modallink>                
                 <div class="form-group pull-right" >
@@ -27,22 +24,22 @@
                         <td v-for="(i,index) in item" :key="index"> {{ i | subStr | upper }} </td>
                         
                         <td v-if="detalhe || editar || deletar" >                            
-                            <form v-bind:id="index" v-if="deletar && token" v-bind:action="deletar" method="post">
+                            <form v-bind:id="index" v-if="deletar && token" v-bind:action="deletar + item.id" method="post">
                                 
                                 <input type="hidden" name="_method" value="DELETE">
                                 <input type="hidden" name="_token" v-bind:value="token">
                                 
                                 <a v-if="detalhe" v-bind:href="editar">Detalhe |</a>
                                 <a v-if="editar && !modal" v-bind:href="editar">Editar |</a>
-                                <modallink v-if="editar && modal" :item="item" tipo="link" nome="editar" titulo="Editar |" css=""></modallink> 
+                                <modallink v-if="editar && modal" :item="item" :url="editar" tipo="link" nome="editar" titulo="Editar |" css=""></modallink> 
 
-                                <a href="#" v-on:click="executaform(index)">Deletar</a>
+                                <a href="#" v-on:click="executaForm(index)"> Deletar</a>
                             </form>
 
                             <span v-if="!token">
                                 <a v-if="detalhe" v-bind:href="editar">Detalhe |</a>
                                 <a v-if="editar && !modal" v-bind:href="editar">Editar |</a>
-                                <modallink v-if="editar && modal" tipo="link" nome="editar" titulo="Editar |" css=""></modallink> 
+                                <modallink v-if="editar && modal" :item="item" :url="editar" tipo="link" nome="editar" titulo="Editar |" css=""></modallink> 
 
                                 <a v-if="deletar" v-bind:href="deletar">Deletar </a>
                             </span>
@@ -50,7 +47,7 @@
                             <span v-if="token && !deletar">
                                 <a v-if="detalhe" v-bind:href="editar">Detalhe |</a>
                                 <a v-if="editar && !modal" v-bind:href="editar">Editar </a>
-                                <modallink v-if="editar && modal" tipo="link" nome="editar" titulo="Editar " css=""></modallink> 
+                                <modallink v-if="editar && modal" :item="item" :url="editar" tipo="link" nome="editar" titulo="Editar " css=""></modallink> 
 
                             </span>
                         </td>
@@ -73,7 +70,7 @@
         filters: {
   	        subStr: function(string) {
                 if (string != null){
-                    return string.toString().substring(0,40);
+                    return string.toString().substring(0,22);
                 }            
             },
             upper: function (value) {
@@ -86,7 +83,7 @@
         methods:{
             executaForm: function(index){
                 document.getElementById(index).submit();
-            },
+            },            
             ordenaColuna: function(coluna){
                 this.ordemAuxCol = coluna;
                 if(this.ordemAux.toLowerCase() =="asc"){
@@ -99,8 +96,7 @@
         computed:{
             lista:function(){
                 
-           
-
+                let lista = this.itens.data;
                 let ordem = this.ordemAux ;
                 let ordemCol = this.ordemAuxCol;
 
@@ -108,13 +104,13 @@
                 ordemCol = parseInt(ordemCol);
 
                 if(ordem == "asc"){
-                    this.itens.sort(function(a,b){
+                    lista.sort(function(a,b){
                     if (Object.values(a)[ordemCol] > Object.values(b)[ordemCol] ) { return 1;}
                     if (Object.values(a)[ordemCol] < Object.values(b)[ordemCol] ) { return -1;}
                     return 0;   
                 });
                 }else{
-                    this.itens.sort(function(a,b){
+                    lista.sort(function(a,b){
                     if (Object.values(a)[ordemCol] < Object.values(b)[ordemCol] ) { return 1;}
                     if (Object.values(a)[ordemCol] > Object.values(b)[ordemCol] ) { return -1;}
                     return 0;
@@ -122,7 +118,7 @@
                 }
 
                 if(this.buscar){
-                    return this.itens.filter(res => {                    
+                    return lista.filter(res => {                    
                     res = Object.values(res);
                     for(let k = 0;k < res.length; k++){
                         if((res[k] + "").toLowerCase().indexOf(this.buscar.toLowerCase()) >= 0){
@@ -132,7 +128,7 @@
                         return false;
                     });
                 }
-                return this.itens;
+                return lista;
             }
         }
     }

@@ -17,7 +17,7 @@
 
 <body>
     <div id="app" style="display:none">
-        <topo titulo="Sistema Mplan" url="{{ url('/plano/principal') }}">            
+        <topo titulo="Sistema Mplan" url="{{ url('/plano/plano/principal') }}">            
             <li >
                 <li>
                     <a href="{{ route('tblusu.index') }}">
