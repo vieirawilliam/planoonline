@@ -4,11 +4,13 @@ namespace App\Models\Plano;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+use Laravel\Passport\HasApiTokens;
 
 class Tblusu extends Authenticatable
 {
     
-    
+    use HasApiTokens, Notifiable;
 
     protected $table = 'tblusu';
     public $timestamps = false;
@@ -18,7 +20,7 @@ class Tblusu extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'usucod','usunome', 'ususenha','nome','situacao','status','codger','id_codger'
+        'usucod','usunome', 'ususenha','nome','situacao','status','codger','id_codger','email'
     ];
 
     /**

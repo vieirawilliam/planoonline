@@ -39,18 +39,16 @@ class TblusuController extends Controller
         //
     }
     
-    public function login(Request $request){
+    public function login(Request $request){    
 
         
         $validator = Validator::make($request->all(), [
             'usunome' => 'required',
-            'ususenha' => 'required',
+            'ususenha' => ['required','min:6'],
         ]);
 
         if ($validator->fails()) {
-            return redirect('/')
-                        ->withErrors($validator)
-                        ->withInput();        
+            return $validator->errors(); 
         }else{
                                    
             $password = $this->codIF($request->ususenha);
@@ -61,12 +59,16 @@ class TblusuController extends Controller
             {                            
                 //auth()->guard('plano')->login($usuarios);                
                 Auth::guard('plano')->login($usuarios);
-                $tblusus = Tblusu::all();
-                return view('plano.principal');         
+                $tblusus = Auth::guard('plano')->user();
+                
+                $tblusus->token = $tblusus->createToken($tblusus->usunome)->accessToken;  
+
+                return $tblusus;         
             }else{
-                return redirect('/')
-                    ->withErrors($validator)
-                    ->withInput();
+                //return redirect('/')
+                //    ->withErrors($validator)
+                //     ->withInput();
+                return ['status'=>false,'mensage'=>'Usuário ou senha invalidos'];
             }
         }        
     }

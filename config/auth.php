@@ -14,7 +14,7 @@ return [
     */
 
     'defaults' => [
-        'guard' => 'plano',
+        'guard' => 'api',
         'passwords' => 'users',
     ],
 
@@ -47,8 +47,8 @@ return [
         ],
 
         'api' => [
-            'driver' => 'token',
-            'provider' => 'users',
+            'driver' => 'passport',
+            'provider' => 'tblusu',
             'hash' => false,
         ],
     ],

@@ -4,6 +4,7 @@ use GuzzleHttp\Middleware;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
+use App\Models\Plano\Tblusu;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -15,7 +16,29 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::post('/cadastro', function (Request $request) {
+    
+    $data = $request->all();
+   
+    $tblusu = Tblusu::create([
+        'usucod' => $data['usucod'],
+        'usunome' => $data['usunome'],
+        'nome' => $data['nome'],
+        'ususenha' => $data['ususenha'],
+        'situacao' => $data['situacao'],
+        'status' => $data['status'],
+        'email' => $data['email']
+    ]);
+
+    $tblusu->token = $tblusu->createToken($tblusu->usunome)->accessToken;    
+
+    return $tblusu;
 });
 
+Route::namespace('Plano')->group(function () {
+    Route::post('/login/logar', 'TblusuController@login')->name('login.login');
+});
+
+Route::middleware(['auth:api'])->get('/usuario', function (Request $request) {
+    return $request->user();
+});
